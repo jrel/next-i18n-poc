@@ -1,0 +1,25 @@
+{
+  "settings": {
+    "defaultLocale": "es"
+  },
+  "locales": [
+    {
+      "id": "es",
+      "messages": {
+        "today": "Hoy es {timestamp, date, ::yyyyMMdd}"
+      }
+    },
+    {
+      "id": "fr",
+      "messages": {
+        "today": "Aujourd'hui, c'est le {timestamp, date, ::yyyyMMdd}"
+      }
+    },
+    {
+      "id": "pt",
+      "messages": {
+        "today": "Hoje é {timestamp, date, ::yyyyMMdd}"
+      }
+    }
+  ]
+}
