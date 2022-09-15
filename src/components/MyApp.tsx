@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 
 import { IntlConfig, IntlProvider } from "react-intl";
 import API from "../API";
+import { CurrencyRatingProvider } from "./contexts/CurrencyRatting";
 import NoopLayout from "./layouts/NoopLayout";
 
 async function loadSettings(dirtyLocale: string) {
@@ -29,11 +30,14 @@ export async function getMyAppStaticProps<P>(
       notFound: true,
     };
   }
-  
+
   return {
     props: {
       ...extraProps,
       ...props,
+      currencyRatting: {
+        eur: 1.2,
+      },
     },
   };
 }
@@ -42,12 +46,12 @@ export interface MyAppProps {
   messages: IntlConfig["messages"];
   locale: string;
   defaultLocale: string;
+  currencyRatting: { eur: number };
 }
 
 export default function MyApp({ Component, pageProps }: AppProps<MyAppProps>) {
   const { messages, locale, defaultLocale } = pageProps;
   const Layout = (Component as any).Layout ?? NoopLayout;
-
   if (Component instanceof Error) return <Component {...pageProps} />;
 
   return (
@@ -57,9 +61,11 @@ export default function MyApp({ Component, pageProps }: AppProps<MyAppProps>) {
         locale={locale}
         defaultLocale={defaultLocale}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <CurrencyRatingProvider value={pageProps.currencyRatting.eur}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </CurrencyRatingProvider>
       </IntlProvider>
     </>
   );

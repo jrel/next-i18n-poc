@@ -1,6 +1,7 @@
 import { GetStaticProps } from "next";
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import Currency from "../components/Currency";
 import { AppLayout } from "../components/layouts/AppLayout";
 import { getMyAppStaticProps, MyAppProps } from "../components/MyApp";
 
@@ -11,7 +12,12 @@ export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
 };
 
 export default function Home() {
-  return <FormattedMessage id="today" values={{ timestamp: Date.now() }} />;
+  return (
+    <>
+      <Currency value={10} />
+      <FormattedMessage id="today" values={{ timestamp: Date.now() }} />
+    </>
+  );
 }
 
 export interface AppLayoutProps {
